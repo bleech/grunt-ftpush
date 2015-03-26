@@ -11,7 +11,7 @@ module.exports = (grunt) ->
 
   grunt.registerMultiTask "ftpush", "Mirror code over FTP", (target) ->
     done = @async()
-    
+
     auth = (key) ->
       if grunt.file.exists(".ftppass")
         config = grunt.file.read(".ftppass")
@@ -60,6 +60,8 @@ module.exports = (grunt) ->
       @ftp = new FTP
         host: @auth.host
         port: @auth.port
+        ssl: @auth.ssl
+        sslOptions: @auth.sslOptions
       @ftp.useList = options.useList
 
       @memory = if grunt.file.exists(@memoryPath)
@@ -140,10 +142,10 @@ module.exports = (grunt) ->
 
     buildTree: (root=@localRoot, result={}) ->
       result[Path.sep] ||= []
-      
+
       unless grunt.file.exists(root)
-        grunt.fatal "#{root} is not an existing location"  
-      
+        grunt.fatal "#{root} is not an existing location"
+
       for filename in FS.readdirSync(root)
         path = Path.join(root, filename)
 
@@ -229,7 +231,7 @@ module.exports = (grunt) ->
             grunt.log.ok "New remote folder created " + path.yellow
 
           callback([])
-    
+
     upload: (basename, path, hash, callback) ->
       grunt.log.debug "Upload", util.inspect(basename), util.inspect(path), util.inspect(hash)
 

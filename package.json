@@ -18,7 +18,7 @@
     "node": "*"
   },
   "dependencies": {
-    "jsftp": "~0.6.0",
+    "jsftp": "jayagl/jsftp#2a82372ea6c3af8adf2ba2445797d4151dfc4632",
     "sugar": "~1.3.8",
     "async": "~0.2.9",
     "grunt": "~0.4.0"
